@@ -48,7 +48,7 @@ public class HttpFactory implements ProtocolFactory {
     }
 
 
-    @Override
+
     public String hostName(Exchanger exchanger) {
         try {
             return new URL(exchanger.url).getHost();

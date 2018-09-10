@@ -22,11 +22,4 @@ public abstract class HttpNotifyBaseAssemparer implements Assemparer<Object, Obj
 
     protected abstract Object parse(Exchanger exchanger, HttpServletRequest arg, HttpServletResponse response);
 
-    @Override
-    public String txtOfAssemble(Object data) {
-        return null;
-    }
-
-    @Override
-    public abstract String txtOfParse(Object data);
 }

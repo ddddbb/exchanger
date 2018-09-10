@@ -12,8 +12,6 @@ public interface ProtocolFactory {
      */
     Connection get(Exchanger exchanger);
 
-    String hostName(Exchanger exchanger);
-
     /**
      * 发布服务
      * <p>

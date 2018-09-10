@@ -17,16 +17,4 @@ public interface Assemparer<AADT, ARDT, PADT, PRDT> {
 
     PRDT parse(Exchanger exchanger, PADT result) throws ParserException;
 
-    /**
-     * 请求文本
-     */
-    String txtOfAssemble(ARDT data);
-
-    /**
-     * 返回文本
-     *
-     * @param data
-     * @return
-     */
-    String txtOfParse(PRDT data);
 }

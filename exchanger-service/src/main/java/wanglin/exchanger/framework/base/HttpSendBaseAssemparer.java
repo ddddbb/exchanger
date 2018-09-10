@@ -46,25 +46,6 @@ public abstract class HttpSendBaseAssemparer<AADT, PRDT> implements Assemparer<A
     }
 
 
-    @Override
-    public String txtOfAssemble(HttpUriRequest data) {
-        String text = null;
-        if (data instanceof HttpGet) {
-            text = ((HttpGet) data).getURI().toString();
-        } else if (data instanceof HttpPost) {
-            try {
-                text = EntityUtils.toString(((HttpPost) data).getEntity(), Charset.defaultCharset());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return text;
-    }
-
-    @Override
-    public String txtOfParse(PRDT data) {
-        return JSON.toJSONString(data);
-    }
 
 
 }

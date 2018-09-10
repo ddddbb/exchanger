@@ -3,6 +3,8 @@ package wanglin.exchanger.framework.protocol;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -15,6 +17,7 @@ import wanglin.exchanger.framework.Connection;
 import wanglin.exchanger.framework.Exchanger;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -33,19 +36,19 @@ public class HttpConnection<AADT> implements Connection<AADT, Map<String, Object
 
 
     @Override
-    public Future<Map<String, Object>> send( Exchanger exchanger, AADT args, Assemparer assemparer) {
+    public Future<Map<String, Object>> send(Exchanger exchanger, AADT args, Assemparer assemparer) {
         HttpUriRequest request;
         try {
-             request = (HttpUriRequest) assemparer.assemble(exchanger, args);
-        }catch (AssemblyException e){
-            throw new RuntimeException("报文组装错误",e);
+            request = (HttpUriRequest) assemparer.assemble(exchanger, args);
+        } catch (AssemblyException e) {
+            throw new RuntimeException("报文组装错误", e);
         }
-        Assert.notNull(request,"组装报文不能为空");
+        Assert.notNull(request, "组装报文不能为空");
         return es.submit(new Callable<Map<String, Object>>() {
             @Override
             public Map<String, Object> call() throws Exception {
                 CloseableHttpResponse response = client.execute(request);
-                logger.info("渠道{}发送报文{}", exchanger.code, assemparer.txtOfAssemble(request));
+                logger.info("渠道{}发送报文{}", exchanger.code, sendText(request));
                 if (response.getStatusLine().getStatusCode() >= 300) {
                     throw new HttpResponseException(response.getStatusLine().getStatusCode(),
                             response.getStatusLine().getReasonPhrase());
@@ -54,8 +57,21 @@ public class HttpConnection<AADT> implements Connection<AADT, Map<String, Object
                 logger.info("渠道{}接收报文{}", exchanger.code, result);
                 return result;
             }
-        });
 
+        });
     }
 
+    private Object sendText(HttpUriRequest request) {
+        String text = null;
+        if (request instanceof HttpGet) {
+            text = ((HttpGet) request).getURI().toString();
+        } else if (request instanceof HttpPost) {
+            try {
+                text = EntityUtils.toString(((HttpPost) request).getEntity(), Charset.defaultCharset());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return text;
+    }
 }
