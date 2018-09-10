@@ -44,8 +44,6 @@ public class ExchangeNotifyConsumer implements ApplicationContextAware {
 
                 return onMessage(getCode(msgs.get(0)), msgs.get(0));
             }
-
-
         });
         consumer.start();
         log.info("Consumer of {}, start.", this.consumerGroup);
@@ -83,7 +81,7 @@ public class ExchangeNotifyConsumer implements ApplicationContextAware {
                             && m.getAnnotation(Listener.class).code().equals(code)
             ).collect(Collectors.toList());
             if (methods.size() == 1) {
-                return new ListenerMethod();
+                return new ListenerMethod(bean,methods.get(0));
             }
         }
 
@@ -99,6 +97,11 @@ public class ExchangeNotifyConsumer implements ApplicationContextAware {
     class ListenerMethod {
         Object listenerBean;
         Method method;
+
+        public ListenerMethod(Object bean, Method method) {
+            this.listenerBean = bean;
+            this.method = method; 
+        }
 
         public void invoke(MessageExt messageExt) throws InvocationTargetException, IllegalAccessException {
             method.invoke(listenerBean, messageExt);
