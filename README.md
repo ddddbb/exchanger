@@ -30,7 +30,12 @@
 | cmb-pay | https | https://..... | abc.cer | cmb-pay-assempare | GB18030| {timeout:10} | |CLIENT | 
  
 
-
+ ## exchanger 系统架构图
+  
+ <img  src= 'image/sa.bmp' width = "500" height = "400"  >   
+ 
+ 
+ <img  src= 'image/biz_sa.bmp' width = "500" height = "400"  >
 
  
 
