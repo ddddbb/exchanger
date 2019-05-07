@@ -2,7 +2,7 @@
 渠道网关
 
  ##普通-分布式-系统协议-拓扑架构图。 
-<img  src= 'image/old_sa.bmp' width = "300" height = "300" title='普通系统内外通讯架构头'>
+<img  src= 'image/old_sa.bmp' width = "500" height = "400" title='普通系统内外通讯架构头'>
 
 这种架构为系统开发带来很多问题   
 1，每个系统要实现N种通讯协议，报文协议等，开发工作量很大   
@@ -12,7 +12,7 @@
 
 ##良好-分布式-系统协议-拓扑架构图
 
- <img  src= 'image/better_sa.bmp' width = "300" height = "300"  >
+ <img  src= 'image/better_sa.bmp' width = "500" height = "400"  >
  
  这种架构下   
  1，每个业务系统只需要关注PRC通讯协议， 和Map报文结构    
