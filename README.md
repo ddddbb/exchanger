@@ -1,7 +1,7 @@
 # exchanger
 渠道网关
 
- ##普通-分布式-系统协议-拓扑架构图。 
+ ## 普通-分布式-系统协议-拓扑架构图。 
  
 <img  src= 'image/old_sa.bmp' width = "500" height = "400"  >
 
@@ -11,7 +11,7 @@
  为核心系统带来稳定性隐患。   
 
 
-##良好-分布式-系统协议-拓扑架构图
+ ## 良好-分布式-系统协议-拓扑架构图
 
  <img  src= 'image/better_sa.bmp' width = "500" height = "400"  >
  
